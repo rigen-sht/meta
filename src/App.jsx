@@ -6,30 +6,26 @@ import Settings from "./pages/settings/Settings";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
   Routes,
   Route,
+  Link
 } from "react-router-dom";
 
 function App() {
-  const currentUser = true;
+  const user = false;
   return (
-    <BrowserRouter>
+    <Router>
       <Topbar />
       <Routes>
-        <Route exact path="/"></Route>
-        <Route path="/posts"></Route>
-        <Route path="/register">
-          {currentUser ? <Homepage /> : <Register />}
-        </Route>
-        <Route path="/login">{currentUser ? <Homepage /> : <Login />}</Route>
-        <Route path="/post/:id">
-          <Single />
-        </Route>
-        <Route path="/write">{currentUser ? <Write /> : <Login />}</Route>
-        <Route path="/settings">{currentUser ? <Settings /> : <Login />}</Route>
+        <Route path="/" element={<Homepage/>} />
+        <Route path="/register" element={user ? <Homepage /> : <Register />} />
+        <Route path="/login" element={user ? <Homepage /> : <Login />} />
+        <Route path="/settings" element={user ? <Settings /> : <Register />} />
+        <Route path="/write" element={user ? <Write /> : <Register />} />
+        <Route path="/post/:postId" element={<Single />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
